@@ -1,6 +1,8 @@
 package com.jarnojort.guadpoc;
 
 import org.apache.guacamole.net.GuacamoleTunnel;
+import org.apache.tomcat.util.http.fileupload.RequestContext;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -16,8 +18,14 @@ public class GuacController {
     }
 
     @GetMapping("/connect")
-    public GuacamoleTunnel getGuac(@RequestBody HttpServletRequest request) {
-        HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest().getRequestURI();        Guac guac = new Guac(protocol, hostname, port, username, password);
-        return guac.doConnect(request)
+    public ResponseEntity<GuacamoleTunnel> getGuac(HttpServletRequest request, @RequestBody GuacModel items) {
+        ResponseEntity<GuacamoleTunnel> guacReturn = null;
+        Guac guac = new Guac(items.getProtocol(), items.getHostname(), items.getPort(), items.getUsername(), items.getPassword());
+        try {
+            guacReturn = guac.doConnect(request);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return new ResponseEntity<>();
     }
 }
