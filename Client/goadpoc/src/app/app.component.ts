@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
 
     // Instantiate client, using an HTTP tunnel for communications.
     var guac = new Guacamole.Client(
-      new Guacamole.HTTPTunnel("tunnel")
+      new Guacamole.HTTPTunnel("connect")
     );
 
     if (display == null) return;

@@ -17,20 +17,20 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
-@RequestMapping("/api/guac")
+@RequestMapping("/guac")
 public class GuacController extends GuacamoleHTTPTunnelServlet {
 
     public GuacController() {
     }
 
     @RequestMapping(value= "/connect", method= RequestMethod.POST)
-    @Override
-    protected GuacamoleTunnel doConnect(HttpServletRequest request) throws GuacamoleException {
+    protected GuacamoleTunnel doConnect(jakarta.servlet.http.HttpServletRequest request) throws GuacamoleException {
         GuacamoleConfiguration config = new GuacamoleConfiguration();
 
 //        Guac guac = new Guac(,, Integer.parseInt(request.getHeader("port")), request.getHeader("username"), request.getHeader("password"));
@@ -50,9 +50,14 @@ public class GuacController extends GuacamoleHTTPTunnelServlet {
     }
 
     @Override
-    @RequestMapping(path = "tunnel", method = { RequestMethod.POST, RequestMethod.GET })
+    @RequestMapping(path = "/tunnel", method = { RequestMethod.POST, RequestMethod.GET })
     protected void handleTunnelRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         super.handleTunnelRequest(request, response);
+    }
+
+    @Override
+    protected GuacamoleTunnel doConnect(HttpServletRequest request) throws GuacamoleException {
+        return null;
     }
 
 

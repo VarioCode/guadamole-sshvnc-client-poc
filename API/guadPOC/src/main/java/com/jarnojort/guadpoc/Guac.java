@@ -30,6 +30,23 @@ public class Guac extends GuacamoleHTTPTunnelServlet {
         this.password = password;
     }
 
+    protected GuacamoleTunnel doConnect2() throws GuacamoleException {
+
+        GuacamoleConfiguration config = new GuacamoleConfiguration();
+        config.setProtocol(protocol);
+        config.setParameter("hostname", hostname);
+        config.setParameter("port", String.valueOf(port));
+        config.setParameter("username", username);
+        config.setParameter("password", password);
+
+        GuacamoleSocket socket = new ConfiguredGuacamoleSocket(
+                new InetGuacamoleSocket(guacdHost, 4822), // omzetten naar env var
+                config
+        );
+        return new SimpleGuacamoleTunnel(socket);
+    }
+
+
     @Override
     protected GuacamoleTunnel doConnect(HttpServletRequest request) throws GuacamoleException {
 
