@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -47,5 +48,12 @@ public class GuacController extends GuacamoleHTTPTunnelServlet {
         );
         return new SimpleGuacamoleTunnel(socket);
     }
+
+    @Override
+    @RequestMapping(path = "tunnel", method = { RequestMethod.POST, RequestMethod.GET })
+    protected void handleTunnelRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+        super.handleTunnelRequest(request, response);
+    }
+
 
 }
