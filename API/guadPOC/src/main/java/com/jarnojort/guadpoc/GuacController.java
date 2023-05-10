@@ -37,10 +37,10 @@ public class GuacController extends GuacamoleHTTPTunnelServlet {
 
 
         config.setProtocol("vnc");
-        config.setParameter("hostname",  "localhost");
+        config.setParameter("hostname",  "172.22.38.116");
         config.setParameter("port", "5900");
 //        config.setParameter("username", "booq");
-        config.setParameter("password", "booq");
+        config.setParameter("password", "fullaccess");
 
         GuacamoleSocket socket = new ConfiguredGuacamoleSocket(
                 new InetGuacamoleSocket("localhost", 4822), // omzetten naar env var
@@ -59,6 +59,4 @@ public class GuacController extends GuacamoleHTTPTunnelServlet {
     protected GuacamoleTunnel doConnect(HttpServletRequest request) throws GuacamoleException {
         return null;
     }
-
-
 }
