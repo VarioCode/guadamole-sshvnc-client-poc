@@ -8,18 +8,19 @@ import org.apache.guacamole.net.SimpleGuacamoleTunnel;
 import org.apache.guacamole.protocol.ConfiguredGuacamoleSocket;
 import org.apache.guacamole.protocol.GuacamoleConfiguration;
 import org.apache.guacamole.servlet.GuacamoleHTTPTunnelServlet;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class Guad extends GuacamoleHTTPTunnelServlet {
+public class Guac extends GuacamoleHTTPTunnelServlet {
     private final String protocol;
     private final String hostname;
     private final int port;
     private final String username;
     private final String password;
-    private final String guacdHost = "guacd"; // omzetten naar env var
+    private final String guacdHost = "localhost"; // omzetten naar env var
 
-    public Guad(String protocol, String hostname, int port, String username, String password) {
+    public Guac(String protocol, String hostname, int port, String username, String password) {
         super();
         this.protocol = protocol;
         this.hostname = hostname;
