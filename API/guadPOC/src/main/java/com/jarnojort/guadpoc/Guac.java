@@ -9,7 +9,9 @@ import org.apache.guacamole.protocol.ConfiguredGuacamoleSocket;
 import org.apache.guacamole.protocol.GuacamoleConfiguration;
 import org.apache.guacamole.servlet.GuacamoleHTTPTunnelServlet;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class Guac extends GuacamoleHTTPTunnelServlet {
     private final String protocol;
@@ -43,5 +45,10 @@ public class Guac extends GuacamoleHTTPTunnelServlet {
                 config
         );
         return new SimpleGuacamoleTunnel(socket);
+    }
+
+    @Override
+    protected void handleTunnelRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+        super.handleTunnelRequest(request, response);
     }
 }
