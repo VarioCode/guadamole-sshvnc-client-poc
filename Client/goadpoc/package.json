@@ -18,8 +18,11 @@
     "@angular/platform-browser": "^16.0.0",
     "@angular/platform-browser-dynamic": "^16.0.0",
     "@angular/router": "^16.0.0",
+    "@illgrenoble/guacamole-common-js": "^0.0.1",
+    "@illgrenoble/ngx-remote-desktop": "^1.4.2",
     "guacamole-common-js": "^1.5.0",
     "rxjs": "~7.8.0",
+    "screenfull": "^6.0.2",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
   },

@@ -37,15 +37,18 @@ public class DummyGuacamoleTunnelServlet extends GuacamoleHTTPTunnelServlet {
     @Override
     protected GuacamoleTunnel doConnect(HttpServletRequest request) throws GuacamoleException {
 
+        //get the parameters from the request
+        String configHost = request.getHeader("hostname");
+
         // guacd connection information
         String hostname = "localhost";
         int port = 4822;
 
         // VNC connection information
         GuacamoleConfiguration config = new GuacamoleConfiguration();
-        config.setProtocol("vnc");
-        config.setParameter("hostname", "192.168.50.140");
-        config.setParameter("port", "5900");
+        config.setProtocol("ssh");
+        config.setParameter("hostname", configHost);
+        config.setParameter("port", "22");
         config.setParameter("username", "user");
         config.setParameter("password", "pass");
 
