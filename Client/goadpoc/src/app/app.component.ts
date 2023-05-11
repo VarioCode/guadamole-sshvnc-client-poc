@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 
 //@ts-ignore
-import { default as Guacamole } from 'guacamole-common-js';
+import Guacamole from 'guacamole-common-js';
 
 
 
@@ -13,32 +13,37 @@ import { default as Guacamole } from 'guacamole-common-js';
 export class AppComponent implements OnInit {
   title = 'goadpoc';
 
+
+
   ngOnInit() {
 // Get display div from document
     // Get display div from document
     var display = document.getElementById("display");
 
-    // Instantiate client, using an HTTP tunnel for communications.
-    var guac = new Guacamole.Client(
-      new Guacamole.HTTPTunnel("http://localhost:8080/guac/connect")
-    );
+    var tunnel = new Guacamole.HTTPTunnel("http://localhost:8080/guac/tunnel");
+
+    var client = new Guacamole.Client(tunnel);
+
+    // Error handler
+    client.onerror = function (error: any) {
+      alert(error);
+    };
+
+    console.log("client", client);
+
+    console.log("tunnel", tunnel);
 
     if (display == null) return;
 
     // Add client to display div
-    display.appendChild(guac.getDisplay().getElement());
+    document.body.appendChild(client.getDisplay().getElement());
 
-    // Error handler
-    guac.onerror = function(error:any) {
-      alert(error);
-    };
 
-    // Connect
-    guac.connect();
 
-    // Disconnect on close
-    window.onunload = function() {
-      guac.disconnect();
+    client.connect();
+
+    window.onunload = function () {
+      client.disconnect();
     }
   }
 }
