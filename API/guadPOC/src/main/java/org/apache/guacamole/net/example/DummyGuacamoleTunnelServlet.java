@@ -39,18 +39,30 @@ public class DummyGuacamoleTunnelServlet extends GuacamoleHTTPTunnelServlet {
 
         //get the parameters from the request
         String configHost = request.getHeader("hostname");
+        String configProtocol = request.getHeader("protocol");
+        int configPort = 0;
 
         // guacd connection information
         String hostname = "localhost";
         int port = 4822;
 
-        // VNC connection information
         GuacamoleConfiguration config = new GuacamoleConfiguration();
-        config.setProtocol("ssh");
+
+
+        // checks the protocol and sets the port accordingly
+        if (configProtocol.equals("vnc")) {
+            configPort = 5900;
+            config.setParameter("password", "");
+        } else if (configProtocol.equals("ssh")) {
+            configPort = 22;
+            config.setParameter("username", "");
+            config.setParameter("password", "");
+        }
+
+        // VNC connection information
+        config.setProtocol(configProtocol);
         config.setParameter("hostname", configHost);
-        config.setParameter("port", "22");
-        config.setParameter("username", "user");
-        config.setParameter("password", "pass");
+        config.setParameter("port", String.valueOf(configPort));
 
         // Connect to guacd, proxying a connection to the VNC server above
         GuacamoleSocket socket = new ConfiguredGuacamoleSocket(
